@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "target": "es2020",
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "types": ["node", "@nestjs/common", "@nestjs/typeorm"],
+        "baseUrl": "./",
+        "paths": {
+            "@/*": ["./src/*"],
+            "@protocols/*": ["./src/protocols/*"],
+            "@services/*": ["./src/services/*"],
+            "@routes/*": ["./src/routes/*"],
+            "@types/*": ["./src/types/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@constants/*": ["./src/constants/*"]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}

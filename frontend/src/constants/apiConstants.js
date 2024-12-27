@@ -1,0 +1,21 @@
+// src/constants/apiConstants.js
+export const API_BASE_URL = 'http://localhost:3000/api';
+export const FILE_ENDPOINT = '/files';
+export const TEST_PLAN_ENDPOINT = '/testplan';
+export const TEST_PLAN_GET_PLAN_DATA_ENDPOINT = '/testplan/getplandata';
+export const TEST_PLAN_SAVE_ENDPOINT = '/testplan/save';
+export const TEST_PLAN_ALL_ENDPOINT = '/testplan/all';
+export const TEST_PLAN_DELETE_ENDPOINT = '/testplan/delete';
+export const API_TEST_PLAN_ADD_PLAN_URL = '/testplan/addplan';
+export const API_TEST_PLAN_START_URL = '/testplan/start';
+export const API_TEST_PLAN_PAUSE_URL = '/testplan/pause';
+export const API_TEST_PLAN_GET_ALL_RESULT_URL = '/testplan/getallresult';
+export const API_DEVICES_URL = '/devices';
+export const API_DEVICE_INFO_URL = '/devices/info';
+export const API_DEVICE_ALL_URL = '/devices/all';
+export const API_DEVICE_ADD_URL = '/devices/add';
+export const API_DEVICE_UPDATE_URL = '/devices/update';
+export const API_DEVICE_DELETE_URL = '/devices/delete';
+export const API_DEVICE_CONNECT_URL = '/devices/connect';
+export const API_TEST_PLAN_EXPORT_URL = '/testplan/export';
+export const API_TEST_PLAN_GET_ALL_EXEC_PLAN_URL = '/testplan/getallexecplans';
