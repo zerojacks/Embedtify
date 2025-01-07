@@ -26,48 +26,50 @@ const TestDetails = () => {
 
             const foundPlan = testPlans[id];
             if (!foundPlan) return;
-
-            if (!foundPlan.plan.status) {
+            console.log("foundPlan", foundPlan);
+            if ((!foundPlan.plan.status) || foundPlan.plan.status === "unknown") {
                 try {
                     const result: PlanTestResult[] = await getTestedResultAPI(id);
-                    result.forEach(item => {
-                        const scheme = foundPlan.plan.schemes.find(
-                            scheme => scheme.id === item.test_scheme_id
-                        );
-                        const usecase = scheme?.usecases.find(
-                            usecase => usecase.id === item.use_case_id
-                        );
-                        const step = usecase?.steps.find(step => step.id === item.step_id);
-                        if (step) {
-                            step.status = item.result.status;
-                        }
-                    });
-
-                    let planPass = true;
-                    foundPlan.plan.schemes.forEach(scheme => {
-                        let schemePass = true;
-                        scheme.usecases.forEach(usecase => {
-                            let usecasePass = true;
-                            usecase.steps.forEach(step => {
-                                if (!step.status) {
-                                    step.status = "unknown";
-                                }
-                                if (step.status === "failure" || step.status === "unknown") {
-                                    usecasePass = false;
-                                }
-                            });
-                            usecase.status = usecasePass ? "success" : "failure";
-                            if (!usecasePass) {
-                                schemePass = false;
+                    if(result.length !== 0) {
+                        result.forEach(item => {
+                            const scheme = foundPlan.plan.schemes.find(
+                                scheme => scheme.id === item.test_scheme_id
+                            );
+                            const usecase = scheme?.usecases.find(
+                                usecase => usecase.id === item.use_case_id
+                            );
+                            const step = usecase?.steps.find(step => step.id === item.step_id);
+                            if (step) {
+                                step.status = item.result.status;
                             }
                         });
-                        scheme.status = schemePass ? "success" : "failure";
-                        if (!schemePass) {
-                            planPass = false;
-                        }
-                    });
-                    foundPlan.plan.status = planPass ? "success" : "failure";
-                } catch (error) {
+                        console.log("result", result, foundPlan);
+                        let planPass = true;
+                        foundPlan.plan.schemes.forEach(scheme => {
+                            let schemePass = true;
+                            scheme.usecases.forEach(usecase => {
+                                let usecasePass = true;
+                                usecase.steps.forEach(step => {
+                                    if (!step.status) {
+                                        step.status = "unknown";
+                                    }
+                                    if (step.status === "failure" || step.status === "unknown") {
+                                        usecasePass = false;
+                                    }
+                                });
+                                usecase.status = usecasePass ? "success" : "failure";
+                                if (!usecasePass) {
+                                    schemePass = false;
+                                }
+                            });
+                            scheme.status = schemePass ? "success" : "failure";
+                            if (!schemePass) {
+                                planPass = false;
+                            }
+                        });
+                        foundPlan.plan.status = planPass ? "success" : "failure";
+                    } 
+                }catch (error) {
                     console.error("Error fetching test results:", error);
                 }
             }
